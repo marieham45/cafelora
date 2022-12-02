@@ -4,7 +4,6 @@ import { Layer } from "../Layer/index.js";
 
 export const Drink = (props) => {
   const { id, name, ordered, image, layers } = props;
-  const { color, label } = layers;
 
   const element = document.createElement("div");
 
@@ -24,7 +23,13 @@ export const Drink = (props) => {
   </div>
 `;
 
-  element.querySelector(".drink__info").append(Layer({ color, label }));
+  element
+    .querySelector(".drink__info")
+    .append(
+      ...layers.map((layer) =>
+        Layer({ color: layer.color, label: layer.label })
+      )
+    );
 
   return element;
 };
