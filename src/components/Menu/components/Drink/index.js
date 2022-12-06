@@ -9,6 +9,13 @@ export const Drink = (props) => {
 
   element.classList.add("drink");
 
+  let buttonText = "Objednat";
+  let buttonClass = "";
+  if (ordered) {
+    buttonText = "Zrušit";
+    buttonClass = "order-btn--ordered";
+  }
+
   element.innerHTML = `    
   <div class="drink__product">
     <div class="drink__cup">
@@ -19,7 +26,7 @@ export const Drink = (props) => {
               </div>
   </div>
   <div class="drink__controls">
-    <button class="order-btn">Objednat</button>
+    <button class="order-btn ${buttonClass}">${buttonText}</button>
   </div>
 `;
 
@@ -30,6 +37,19 @@ export const Drink = (props) => {
         Layer({ color: layer.color, label: layer.label })
       )
     );
+
+  element.querySelector(".order-btn").addEventListener("click", () => {
+    fetch(`https://apps.kodim.cz/daweb/cafelora/api/me/drinks/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Email masenka@gmail.com`,
+      },
+      body: JSON.stringify({ ordered: true }),
+    })
+      .then((response) => response.json())
+      .then((data) => element.replaceWith(Drink(data.results)));
+  });
 
   return element;
 };
