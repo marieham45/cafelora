@@ -9,11 +9,14 @@ export const Drink = (props) => {
 
   element.classList.add("drink");
 
-  let buttonText = "Objednat";
+  let buttonText = "";
   let buttonClass = "";
   if (ordered) {
     buttonText = "Zrušit";
     buttonClass = "order-btn--ordered";
+  } else {
+    buttonText = "Objednat";
+    buttonClass = "";
   }
 
   element.innerHTML = `    
@@ -45,7 +48,7 @@ export const Drink = (props) => {
         "Content-Type": "application/json",
         Authorization: `Email masenka@gmail.com`,
       },
-      body: JSON.stringify({ ordered: true }),
+      body: JSON.stringify({ ordered: !ordered }),
     })
       .then((response) => response.json())
       .then((data) => element.replaceWith(Drink(data.results)));
