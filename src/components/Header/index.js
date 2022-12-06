@@ -1,32 +1,26 @@
 export const Header = ({ showMenu }) => {
-  showMenu = true;
+  console.log(showMenu);
 
   const element = document.createElement("header");
 
-  element.innerHTML = `  <div id="home" class="header__content container">
-  <div class="site-logo"></div>
-
-  <div class="navigation">
-    <button class="nav-btn"></button>
-    <nav class="rollout-nav nav-closed">
-      <a href="/">domů</a>
-      <a href="#menu">menu</a>
-      <a href="#gallery">galerie</a>
-      <a href="#contact">kontakt</a>
-    </nav>
-  </div>
-</div>`;
+  let menu = `
+    <a href="/">domů</a>
+    <a href="#menu">menu</a>
+    <a href="#gallery">galerie</a>
+    <a href="#contact">kontakt</a>
+  `;
 
   if (!showMenu) {
-    element.innerHTML = `<div class="header__content container">
-  <div class="site-logo"></div>
-
-  <nav class="inline-nav">
-    <a href="/">Hlavní stránka</a>
-  </nav>
-
-</div>`;
+    menu = `
+  <a href="/">Hlavní stránka</a>
+`;
   }
+
+  element.innerHTML = `  <div class="header__content container">
+  <div class="site-logo"></div><div class="navigation">
+  <button class="nav-btn"></button>
+  <nav class="inline-nav rollout-nav nav-closed">
+  ${menu}</nav></div>`;
 
   element.querySelector(".nav-btn").addEventListener("click", () => {
     element.querySelector(".rollout-nav").classList.toggle("nav-closed");

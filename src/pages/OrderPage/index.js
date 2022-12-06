@@ -9,7 +9,7 @@ export const OrderPage = () => {
 
   element.classList.add("page");
 
-  element.append(Header({ showMenu: true }), Order({}), Footer());
+  element.append(Header({ showMenu: false }), Order({}), Footer());
 
   return element;
 };
